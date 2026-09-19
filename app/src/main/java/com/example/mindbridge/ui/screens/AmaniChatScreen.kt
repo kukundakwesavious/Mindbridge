@@ -11,7 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,7 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mindbridge.data.model.AmaniMessage
@@ -44,10 +48,12 @@ fun AmaniChatScreen(
     }
 
     val quickPrompts = listOf(
-        "I'm feeling overwhelmed with exams",
-        "Guide me in a 2-minute breathing calm",
-        "How do I book a human counsellor?",
-        "I feel lonely and stressed"
+        "I feel overwhelmed with exams 📚",
+        "2-minute box breathing calm 🌿",
+        "Oli otya Amani! 🌸",
+        "How do I book a private session? 🗓️",
+        "I can't sleep, mind is racing 🌙",
+        "Crisis helplines in Uganda 🆘"
     )
 
     Column(
@@ -100,18 +106,28 @@ fun AmaniChatScreen(
                         )
                     }
                     Text(
-                        text = "Peace & guidance • 24/7 confidential support",
+                        text = "100% Efficient • Instant 24/7 Guidance",
                         fontSize = 12.sp,
-                        color = MindBridgeTextMuted
+                        color = MindBridgeGreen,
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
 
-                TextButton(
+                Button(
                     onClick = onCrisisClick,
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = CrisisRedBg),
+                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp)
                 ) {
+                    Icon(
+                        imageVector = Icons.Default.Call,
+                        contentDescription = "SOS",
+                        tint = CrisisRed,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Crisis SOS",
+                        text = "SOS 116",
                         color = CrisisRed,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
@@ -147,7 +163,7 @@ fun AmaniChatScreen(
                             strokeWidth = 2.dp
                         )
                         Text(
-                            text = "Amani is typing gentle thoughts...",
+                            text = "Amani is typing thoughtful guidance...",
                             fontSize = 13.sp,
                             color = MindBridgeTextMuted
                         )
@@ -200,7 +216,7 @@ fun AmaniChatScreen(
                 OutlinedTextField(
                     value = inputText,
                     onValueChange = { inputText = it },
-                    placeholder = { Text("Share whatever is on your mind...", fontSize = 14.sp) },
+                    placeholder = { Text("Ask Amani anything...", fontSize = 14.sp) },
                     modifier = Modifier
                         .weight(1f)
                         .testTag("amani_input_field"),
@@ -289,11 +305,12 @@ fun AmaniMessageBubble(message: AmaniMessage) {
             modifier = Modifier.widthIn(max = 320.dp)
         ) {
             Column(modifier = Modifier.padding(14.dp)) {
+                val formattedText = formatAmaniMarkdown(message.text, isUser)
                 Text(
-                    text = message.text.replace("### ", "").replace("**", "").replace("*", "• "),
+                    text = formattedText,
                     color = if (isUser) Color.White else MindBridgeNavy,
                     fontSize = 14.sp,
-                    lineHeight = 20.sp
+                    lineHeight = 21.sp
                 )
             }
         }
@@ -305,6 +322,48 @@ fun AmaniMessageBubble(message: AmaniMessage) {
                 color = MindBridgeTextMuted,
                 modifier = Modifier.padding(top = 2.dp, end = 4.dp)
             )
+        }
+    }
+}
+
+/**
+ * Parses markdown headings and bold text into Compose AnnotatedString
+ */
+private fun formatAmaniMarkdown(raw: String, isUser: Boolean): androidx.compose.ui.text.AnnotatedString {
+    return buildAnnotatedString {
+        val lines = raw.split("\n")
+        lines.forEachIndexed { index, line ->
+            val trimmed = line.trim()
+            if (trimmed.startsWith("### ")) {
+                withStyle(SpanStyle(fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = if (isUser) Color.White else Color(0xFF0D3B66))) {
+                    append(trimmed.removePrefix("### "))
+                }
+            } else if (trimmed.startsWith("## ")) {
+                withStyle(SpanStyle(fontWeight = FontWeight.Black, fontSize = 16.sp, color = if (isUser) Color.White else Color(0xFF1456B8))) {
+                    append(trimmed.removePrefix("## "))
+                }
+            } else {
+                // Parse bold parts: **text**
+                var remaining = line
+                while (remaining.contains("**")) {
+                    val start = remaining.indexOf("**")
+                    val end = remaining.indexOf("**", start + 2)
+                    if (end != -1) {
+                        append(remaining.substring(0, start))
+                        val boldText = remaining.substring(start + 2, end)
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = if (isUser) Color.White else Color(0xFF0D3B66))) {
+                            append(boldText)
+                        }
+                        remaining = remaining.substring(end + 2)
+                    } else {
+                        break
+                    }
+                }
+                append(remaining)
+            }
+            if (index < lines.size - 1) {
+                append("\n")
+            }
         }
     }
 }

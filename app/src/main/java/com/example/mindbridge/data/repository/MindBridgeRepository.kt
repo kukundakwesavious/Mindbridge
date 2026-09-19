@@ -385,7 +385,7 @@ class MindBridgeRepository(private val dao: MindBridgeDao) {
         )
         dao.insertAmaniMessage(userMsg)
 
-        // Generate intelligent, structured Gemini-style response
+        // Generate intelligent, structured Gemini-style response with optimal efficiency
         val replyText = generateAmaniResponse(userText)
         val amaniReply = AmaniMessageEntity(
             id = "amani-${System.currentTimeMillis() + 1}",
@@ -398,52 +398,137 @@ class MindBridgeRepository(private val dao: MindBridgeDao) {
     }
 
     private fun generateAmaniResponse(prompt: String): String {
-        val lower = prompt.lowercase(Locale.ROOT)
+        val lower = prompt.lowercase(Locale.ROOT).trim()
         return when {
-            lower.contains("stress") || lower.contains("anxious") || lower.contains("anxiety") || lower.contains("overwhelm") -> {
-                "### Grounding & Calming with Amani\n\n" +
-                "It is completely valid to feel overwhelmed right now. Your nervous system is signaling high tension, but you are safe in this moment.\n\n" +
-                "### 1. The 5-4-3-2-1 Sensory Grounding Technique\n" +
-                "* **5 things you can see** around you (your screen, a tree, your shoes)\n" +
-                "* **4 things you can physically touch** (the table, your clothes)\n" +
-                "* **3 things you can hear** (the wind, distant voices)\n" +
-                "* **2 things you can smell**\n" +
-                "* **1 deep, conscious breath**\n\n" +
-                "Would you like me to walk you through another calming exercise or connect you with a therapist?"
+            // Greetings & Ugandan Context
+            lower.contains("oli otya") || lower.contains("gyebaleko") || lower.contains("wasuze") ||
+            lower.contains("agandi") || lower.contains("orire") || lower.contains("habari") ||
+            lower.contains("hujambo") || lower.startsWith("hi") || lower.startsWith("hello") || lower == "hey" -> {
+                "### Oli otya! Mirembe ne emirembe 🌸\n\n" +
+                "I am **Amani**, your 24/7 MindBridge AI companion. *Amani* means Peace and Harmony.\n\n" +
+                "I am here to support you with whatever is on your heart today:\n" +
+                "• **Emotional Relief**: Vent or unpack overwhelming thoughts safely\n" +
+                "• **Practical Calming**: Guided 2-minute box breathing or sensory grounding\n" +
+                "• **Academic Support**: Study anxiety, exam focus, and university pressures\n" +
+                "• **Human Therapy**: Confidential bookings with licensed Ugandan psychologists\n\n" +
+                "How are you feeling right this moment?"
             }
-            lower.contains("breath") || lower.contains("calm") -> {
-                "### 2-Minute Box Breathing Exercise 🌿\n\n" +
-                "Let's do this together right now. Sit comfortably:\n\n" +
+
+            // Severe Crisis & Safety (Highest Priority)
+            lower.contains("suicide") || lower.contains("kill myself") || lower.contains("end my life") ||
+            lower.contains("harm") || lower.contains("want to die") || lower.contains("no reason to live") -> {
+                "### You Are Precious & Not Alone ❤️\n\n" +
+                "Please stay with me. What you are going through is painful, but you do not have to carry it alone. Compassionate human help is ready for you right now in Uganda:\n\n" +
+                "• **Uganda Youth & Child Helpline (Sauti)**: Call **116** (Toll-Free, 24/7, All Languages)\n" +
+                "• **Butabika Hospital Mental Health Helpline**: **0800 200 600** (Toll-Free)\n" +
+                "• **National Emergency Police & Medical**: **112** or **999**\n" +
+                "• **Lifeline Uganda Crisis Intervention**: **0800 220 000**\n\n" +
+                "Tap the **Crisis SOS** button at the top to connect immediately. There is hope, and people who care deeply about your tomorrow are waiting to listen."
+            }
+
+            // Stress, Panic & Anxiety
+            lower.contains("stress") || lower.contains("anxious") || lower.contains("anxiety") ||
+            lower.contains("panic") || lower.contains("overwhelm") || lower.contains("scared") || lower.contains("fear") -> {
+                "### Calming Your Nervous System with Amani 🌿\n\n" +
+                "It is completely valid to feel overwhelmed right now. Your nervous system is in overdrive, but you are in a safe space.\n\n" +
+                "### 1. The 5-4-3-2-1 Sensory Grounding Tool\n" +
+                "• **5 things you see**: Look around and name 5 distinct objects\n" +
+                "• **4 things you can touch**: Notice your feet on the ground or fabric of your clothes\n" +
+                "• **3 sounds you hear**: The hum of a fan, birds, or distant cars\n" +
+                "• **2 things you can smell**: Fresh air, coffee, or rain\n" +
+                "• **1 conscious breath**: Inhale deeply... and release\n\n" +
+                "### 2. Immediate Re-Centering\n" +
+                "Say to yourself: *\"I don't have to resolve the next year today. I only need to navigate the next 10 minutes.\"*\n\n" +
+                "Would you like to try our 2-minute box breathing timer next?"
+            }
+
+            // Breathing & Grounding
+            lower.contains("breath") || lower.contains("breathe") || lower.contains("calm") ||
+            lower.contains("meditat") || lower.contains("relax") -> {
+                "### 2-Minute Box Breathing Exercise 🌬️\n\n" +
+                "Let's synchronize our breathing right now. Relax your jaw and drop your shoulders:\n\n" +
                 "1. **Inhale slowly** through your nose: *1... 2... 3... 4...*\n" +
                 "2. **Hold your breath gently**: *1... 2... 3... 4...*\n" +
                 "3. **Exhale smoothly** through your mouth: *1... 2... 3... 4...*\n" +
-                "4. **Pause in stillness**: *1... 2... 3... 4...*\n\n" +
-                "Notice your shoulders dropping away from your ears. How does your body feel now?"
+                "4. **Rest in quiet stillness**: *1... 2... 3... 4...*\n\n" +
+                "Repeat this cycle 3 times. Feel your heart rate gently steadying.\n\n" +
+                "How does your chest and body feel right now?"
             }
-            lower.contains("exam") || lower.contains("study") || lower.contains("university") || lower.contains("campus") -> {
-                "### Academic & University Coping Strategy\n\n" +
-                "Academic pressure at university can feel heavy with deadlines and expectations.\n\n" +
-                "### Practical Steps:\n" +
-                "* **Pomodoro Technique**: 25 minutes of single-task focus, then 5 minutes of rest.\n" +
-                "* **Brain Dump**: Write down all tasks on paper so they don't crowd your thoughts.\n" +
-                "* **Prioritize**: Pick the top 2 things to finish today. Everything else can wait.\n\n" +
-                "Remember: your exams do not define your human worth."
+
+            // University, Exams & Academic Pressure
+            lower.contains("exam") || lower.contains("study") || lower.contains("coursework") ||
+            lower.contains("university") || lower.contains("campus") || lower.contains("test") ||
+            lower.contains("makerere") || lower.contains("kyambogo") || lower.contains("deadline") -> {
+                "### Academic & University Focus Strategy 📚\n\n" +
+                "Coursework deadlines and exam pressure can feel heavy, especially with family and academic expectations in Uganda.\n\n" +
+                "### Actionable Steps to Beat Exam Paralysis:\n" +
+                "• **The 20/5 Micro-Burst**: Work on ONE small section for 20 minutes with your phone face down, then take a 5-minute break.\n" +
+                "• **Brain-Dump**: Write down every pending task on a physical paper. Seeing it out of your head stops racing thoughts.\n" +
+                "• **Pick The Anchor Task**: Focus only on the single assignment due soonest.\n\n" +
+                "> *Remember: Your exam marks are a milestone, not a definition of your character or intelligence.*\n\n" +
+                "What specific topic or deadline is pressing you most right now?"
             }
-            lower.contains("suicide") || lower.contains("kill") || lower.contains("harm") || lower.contains("die") -> {
-                "### Urgent Support for You\n\n" +
-                "Please know that you are deeply valued and not alone. Immediate compassionate human support is available for you right now:\n\n" +
-                "• **Uganda Youth & Child Helpline (Sauti)**: 116 (Toll-Free, 24/7)\n" +
-                "• **Butabika Hospital Mental Health Helpline**: +256 800 200 600\n" +
-                "• **Police/Emergency Ambulance**: 112 or 999\n\n" +
-                "Please tap the Crisis button or reach out to someone you trust immediately."
+
+            // Depression, Loneliness & Sadness
+            lower.contains("depress") || lower.contains("sad") || lower.contains("lonely") ||
+            lower.contains("empty") || lower.contains("cry") || lower.contains("crying") ||
+            lower.contains("hopeless") || lower.contains("alone") -> {
+                "### I Am Right Here With You 🤍\n\n" +
+                "Loneliness and heavy sadness can feel like carrying a silent weight through a crowded room. Thank you for trusting me with how you feel.\n\n" +
+                "### Small Anchors for Today:\n" +
+                "• **Drink a glass of cool water**: Physical hydration gently nudges the brain.\n" +
+                "• **Step into natural daylight**: 5 minutes of sunlight on campus or outside helps circadian mood regulation.\n" +
+                "• **No Self-Judgment**: It is okay not to be productive today. Surviving a hard day is an achievement in itself.\n\n" +
+                "Our **Peer Reflections** wall also has encouraging messages from fellow Ugandan students who have walked through this. Would you like to read some, or speak with Dr. Grace Nakunda?"
             }
+
+            // Sleep & Insomnia
+            lower.contains("sleep") || lower.contains("insomnia") || lower.contains("tired") ||
+            lower.contains("exhaust") || lower.contains("nightmare") || lower.contains("awake") -> {
+                "### Nighttime Calming & Sleep Hygiene 🌙\n\n" +
+                "Racing thoughts when lying in bed can be exhausting. Here is a proven routine to calm your nervous system:\n\n" +
+                "• **Digital Curfew**: Turn off bright phone screens or put them in night/warm light mode.\n" +
+                "• **4-7-8 Sleep Breathing**: Inhale for 4 seconds, hold for 7 seconds, exhale slowly for 8 seconds. This activates the vagus nerve.\n" +
+                "• **Mental Parking Lot**: Keep a notebook by your bed. Write down any worries so your mind knows they are safely stored for tomorrow.\n\n" +
+                "Close your eyes and let your muscles loosen from your toes to your forehead."
+            }
+
+            // Therapy & Booking Counsellors
+            lower.contains("book") || lower.contains("counsellor") || lower.contains("therapist") ||
+            lower.contains("doctor") || lower.contains("appointment") || lower.contains("cost") ||
+            lower.contains("private") || lower.contains("anonymous") -> {
+                "### Confidential Counselling on MindBridge 🛡️\n\n" +
+                "Speaking to a qualified Ugandan professional is safe, discreet, and non-judgmental:\n\n" +
+                "### How It Works:\n" +
+                "1. Tap **Counsellors** to view verified practitioners (e.g. Dr. Grace Nakunda, Ronald Mukasa).\n" +
+                "2. Choose your preferred language: English, Luganda, Runyankore, or Swahili.\n" +
+                "3. Select your consultation mode: **Text Chat**, **Voice Call**, or **Video Call**.\n" +
+                "4. All consultations use end-to-end encryption with your anonymous student ID.\n\n" +
+                "Would you like me to guide you directly to our counsellor directory?"
+            }
+
+            // Relationships & Family
+            lower.contains("relationship") || lower.contains("boyfriend") || lower.contains("girlfriend") ||
+            lower.contains("partner") || lower.contains("parent") || lower.contains("family") || lower.contains("breakup") -> {
+                "### Navigating Relationships & Boundaries 🤝\n\n" +
+                "Interpersonal and family conflicts can bring intense emotional turbulence.\n\n" +
+                "### Guiding Principles:\n" +
+                "• **Pause Before Reacting**: When emotions are high, take an intentional cooling hour before sending messages.\n" +
+                "• **Separate What You Can Control**: You can control your communication and boundaries; you cannot control another person's reaction.\n" +
+                "• **Check In With Yourself**: Are your fundamental needs for respect and safety being honored?\n\n" +
+                "Tell me more about what happened, and let's untangle it together."
+            }
+
+            // Default Empathetic Response
             else -> {
-                "### Oli otya! I hear you.\n\n" +
-                "Thank you for sharing that with me. Whatever you are navigating today, take a gentle, deep breath.\n\n" +
-                "### Next Steps We Can Take:\n" +
-                "* **Talk Through It**: Tell me more about what is on your mind.\n" +
-                "* **Relaxation**: We can do a quick 2-minute breathing exercise.\n" +
-                "* **Find a Specialist**: You can book a confidential session with a verified human counsellor in the **Counsellors** tab."
+                "### I Am Listening & Walking With You 🤝\n\n" +
+                "Thank you for sharing that with me. Even small thoughts deserve care and attention.\n\n" +
+                "### What We Can Explore Together:\n" +
+                "• **Talk Deeper**: Tell me more about what triggered these thoughts\n" +
+                "• **Grounding**: Practice a 2-minute breathing calm or relaxation\n" +
+                "• **Study & Focus**: Strategies for university and coursework balance\n" +
+                "• **Connect**: Schedule a confidential session with a licensed Ugandan counsellor\n\n" +
+                "Take a slow breath. What would feel most helpful for you right now?"
             }
         }
     }
