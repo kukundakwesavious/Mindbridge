@@ -1,6 +1,6 @@
 {
-  "name": "MindBridge Uganda",
-  "description": "MindBridge Uganda mental wellbeing mobile platform — React Native Expo MVVM prototype migrated to Web",
+  "name": "MindBridge",
+  "description": "MindBridge Uganda mental wellbeing and counseling platform with Amani AI companion, professional therapists, and peer support",
   "requestFramePermissions": ["camera", "microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

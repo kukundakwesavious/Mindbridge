@@ -1,0 +1,310 @@
+package com.example.mindbridge.ui.screens
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.mindbridge.data.model.AmaniMessage
+import com.example.mindbridge.ui.theme.*
+import kotlinx.coroutines.launch
+
+@Composable
+fun AmaniChatScreen(
+    messages: List<AmaniMessage>,
+    isSending: Boolean,
+    onSendMessage: (String) -> Unit,
+    onCrisisClick: () -> Unit
+) {
+    var inputText by remember { mutableStateOf("") }
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(messages.size) {
+        if (messages.isNotEmpty()) {
+            listState.animateScrollToItem(messages.size - 1)
+        }
+    }
+
+    val quickPrompts = listOf(
+        "I'm feeling overwhelmed with exams",
+        "Guide me in a 2-minute breathing calm",
+        "How do I book a human counsellor?",
+        "I feel lonely and stressed"
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MindBridgeBackground)
+            .testTag("amani_chat_screen")
+    ) {
+        // Amani intro banner
+        Surface(
+            color = Color.White,
+            shadowElevation = 2.dp,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(MindBridgeLightBlue),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AutoAwesome,
+                        contentDescription = "Amani AI",
+                        tint = MindBridgeBlue,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = "Amani AI Companion",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = MindBridgeNavy
+                        )
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(MindBridgeGreen)
+                        )
+                    }
+                    Text(
+                        text = "Peace & guidance • 24/7 confidential support",
+                        fontSize = 12.sp,
+                        color = MindBridgeTextMuted
+                    )
+                }
+
+                TextButton(
+                    onClick = onCrisisClick,
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        text = "Crisis SOS",
+                        color = CrisisRed,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp
+                    )
+                }
+            }
+        }
+
+        // Messages list
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(messages) { message ->
+                AmaniMessageBubble(message = message)
+            }
+
+            if (isSending) {
+                item {
+                    Row(
+                        modifier = Modifier.padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = MindBridgeBlue,
+                            strokeWidth = 2.dp
+                        )
+                        Text(
+                            text = "Amani is typing gentle thoughts...",
+                            fontSize = 13.sp,
+                            color = MindBridgeTextMuted
+                        )
+                    }
+                }
+            }
+        }
+
+        // Quick prompt suggestions
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(quickPrompts) { prompt ->
+                Surface(
+                    onClick = {
+                        onSendMessage(prompt)
+                    },
+                    shape = RoundedCornerShape(16.dp),
+                    color = MindBridgeLightBlue,
+                    border = null
+                ) {
+                    Text(
+                        text = prompt,
+                        color = MindBridgeBlue,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+            }
+        }
+
+        // Chat Input Row
+        Surface(
+            color = Color.White,
+            shadowElevation = 8.dp,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = inputText,
+                    onValueChange = { inputText = it },
+                    placeholder = { Text("Share whatever is on your mind...", fontSize = 14.sp) },
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag("amani_input_field"),
+                    shape = RoundedCornerShape(24.dp),
+                    maxLines = 3,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = MindBridgeBlue,
+                        unfocusedBorderColor = MindBridgeBorder
+                    )
+                )
+
+                IconButton(
+                    onClick = {
+                        if (inputText.isNotBlank()) {
+                            val text = inputText
+                            inputText = ""
+                            onSendMessage(text)
+                            scope.launch {
+                                if (messages.isNotEmpty()) {
+                                    listState.animateScrollToItem(messages.size)
+                                }
+                            }
+                        }
+                    },
+                    enabled = inputText.isNotBlank() && !isSending,
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(if (inputText.isNotBlank()) MindBridgeBlue else MindBridgeLightBlue)
+                        .testTag("amani_send_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Send,
+                        contentDescription = "Send",
+                        tint = if (inputText.isNotBlank()) Color.White else MindBridgeBlue
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AmaniMessageBubble(message: AmaniMessage) {
+    val isUser = message.sender == "user"
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = if (isUser) Alignment.End else Alignment.Start
+    ) {
+        if (!isUser) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(bottom = 4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.AutoAwesome,
+                    contentDescription = null,
+                    tint = MindBridgeBlue,
+                    modifier = Modifier.size(14.dp)
+                )
+                Text(
+                    text = "Amani AI",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    color = MindBridgeBlue
+                )
+                Text(
+                    text = "• ${message.time}",
+                    fontSize = 11.sp,
+                    color = MindBridgeTextMuted
+                )
+            }
+        }
+
+        Surface(
+            shape = RoundedCornerShape(
+                topStart = 16.dp,
+                topEnd = 16.dp,
+                bottomStart = if (isUser) 16.dp else 4.dp,
+                bottomEnd = if (isUser) 4.dp else 16.dp
+            ),
+            color = if (isUser) MindBridgeBlue else Color.White,
+            shadowElevation = if (isUser) 0.dp else 1.dp,
+            modifier = Modifier.widthIn(max = 320.dp)
+        ) {
+            Column(modifier = Modifier.padding(14.dp)) {
+                Text(
+                    text = message.text.replace("### ", "").replace("**", "").replace("*", "• "),
+                    color = if (isUser) Color.White else MindBridgeNavy,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                )
+            }
+        }
+
+        if (isUser) {
+            Text(
+                text = message.time,
+                fontSize = 11.sp,
+                color = MindBridgeTextMuted,
+                modifier = Modifier.padding(top = 2.dp, end = 4.dp)
+            )
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MindBridge</string>
+    <string name="tagline">Confidential youth wellbeing &amp; counseling</string>
+    <string name="uganda_tag">Kampala, Uganda</string>
+    <string name="sos_crisis">Crisis Support</string>
+    <string name="talk_to_amani">Chat with Amani AI</string>
+    <string name="book_counsellor">Book a Counsellor</string>
+    <string name="mental_library">Psychoeducation Library</string>
+    <string name="peer_support">Peer Reflections</string>
+    <string name="referrals">Community Referrals</string>
+</resources>
