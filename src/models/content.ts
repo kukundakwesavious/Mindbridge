@@ -1,0 +1,81 @@
+import { ContentItem } from '../types';
+
+export const content: ContentItem[] = [
+  {
+    id: 'p1',
+    title: 'Understanding Depression',
+    type: 'Article',
+    time: '5 min read',
+    category: 'Mental Wellbeing',
+    icon: 'document-text',
+    tone: 'blue',
+    summary: 'Learn what depression can look like, when to seek support, and small steps that may help.',
+    body: [
+      'Depression can affect mood, energy, sleep, concentration and everyday activities.',
+      'You do not have to manage difficult feelings alone. Talking to a trusted person or qualified professional can be a useful next step.',
+      'If you feel unsafe or at immediate risk, use the emergency support option in MindBridge.',
+    ],
+  },
+  {
+    id: 'p2',
+    title: 'Managing Anxiety',
+    type: 'Guide',
+    time: '8 min',
+    category: 'Mental Wellbeing',
+    icon: 'leaf',
+    tone: 'green',
+    summary: 'Simple grounding, breathing and self-care practices for stressful moments.',
+    body: [
+      'Pause and notice what you can see, hear and feel around you.',
+      'Try slow, comfortable breathing and reduce immediate distractions where possible.',
+      'If anxiety is persistent or interfering with daily life, consider speaking with a counsellor.',
+    ],
+  },
+  {
+    id: 'p3',
+    title: 'Living Positively with HIV',
+    type: 'Article',
+    time: '6 min read',
+    category: 'HIV/AIDS',
+    icon: 'heart',
+    tone: 'pink',
+    summary: 'Psychosocial support for coping, connection, stigma and wellbeing.',
+    body: [
+      'Living with HIV can involve emotional and social challenges as well as health care needs.',
+      'Confidential support and trusted relationships can help people cope with stigma and isolation.',
+      'MindBridge does not require HIV disclosure to access general mental health features.',
+    ],
+  },
+  {
+    id: 'p4',
+    title: 'Stress Management Tips',
+    type: 'Guide',
+    time: '7 min',
+    category: 'Mental Wellbeing',
+    icon: 'sun',
+    tone: 'orange',
+    summary: 'Everyday ways to recognise stress and build healthier coping routines.',
+    body: [
+      'Identify situations that repeatedly increase stress.',
+      'Break large tasks into smaller steps and create time for rest and supportive relationships.',
+      'Reach out for professional support when stress becomes difficult to manage.',
+    ],
+  },
+  {
+    id: 'p5',
+    title: 'Building Healthy Relationships',
+    type: 'Article',
+    time: '5 min read',
+    category: 'Relationships',
+    icon: 'users',
+    tone: 'teal',
+    summary: 'Communication, boundaries, trust and knowing when to ask for support.',
+    body: [
+      'Healthy relationships involve respect, communication and personal boundaries.',
+      'Ask for clarification rather than assuming what another person means.',
+      'Support is available when a relationship becomes harmful or overwhelming.',
+    ],
+  },
+];
+
+export const languages: string[] = ['English', 'Luganda', 'Runyankore'];

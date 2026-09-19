@@ -2,27 +2,34 @@
   "name": "mindbridge-uganda",
   "version": "1.1.0",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "check": "node --check App.js"
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs"
   },
   "dependencies": {
-    "@expo/vector-icons": "^15.0.2",
-    "@react-native-async-storage/async-storage": "^2.2.0",
-    "@react-navigation/bottom-tabs": "^7.4.6",
-    "@react-navigation/native": "^7.1.17",
-    "@react-navigation/native-stack": "^7.3.25",
-    "expo": "^57.0.24",
-    "expo-linear-gradient": "^15.0.7",
-    "expo-status-bar": "~57.0.1",
-    "react": "19.1.0",
-    "react-native": "0.81.5",
-    "react-native-safe-area-context": "~5.6.0",
-    "react-native-screens": "~4.16.0"
+    "@google/genai": "^2.23.0",
+    "clsx": "^2.1.1",
+    "dotenv": "^18.0.1",
+    "esbuild": "^0.28.2",
+    "express": "^5.2.1",
+    "lucide-react": "^0.475.0",
+    "motion": "^13.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.6.0",
+    "tsx": "^4.23.13"
   },
-  "description": "MindBridge Uganda mental wellbeing mobile platform — React Native Expo MVVM prototype"
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@types/express": "^5.0.6",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "description": "MindBridge Uganda mental wellbeing mobile platform — React Native Expo MVVM prototype migrated to Web"
 }

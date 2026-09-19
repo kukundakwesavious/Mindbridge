@@ -1,0 +1,6 @@
+{
+  "name": "MindBridge Uganda",
+  "description": "MindBridge Uganda mental wellbeing mobile platform — React Native Expo MVVM prototype migrated to Web",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
