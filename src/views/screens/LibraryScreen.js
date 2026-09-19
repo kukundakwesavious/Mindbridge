@@ -1,0 +1,7 @@
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../theme/theme';
+import { Card, Header, IconBox, Pill, Screen, SearchField } from '../components/UI';
+import { useLibraryViewModel } from '../../viewmodels/useLibraryViewModel';
+export default function LibraryScreen({navigation}) { const vm=useLibraryViewModel(); return <Screen><Header title="Psychoeducation" subtitle="Practical, evidence-informed resources"/><SearchField value={vm.query} onChangeText={vm.setQuery} placeholder="Search articles and guides"/><ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom:10}}>{vm.categories.map(c=><Pill key={c} label={c} active={vm.category===c} onPress={()=>vm.setCategory(c)}/>)}</ScrollView>{vm.items.map(item=><Card key={item.id} onPress={()=>navigation.navigate('ContentDetail',{item})}><View style={s.row}><IconBox icon={item.icon} tone={item.tone}/><View style={{flex:1,marginLeft:12}}><Text style={s.title}>{item.title}</Text><Text style={s.meta}>{item.type} • {item.time}</Text><Text numberOfLines={2} style={s.summary}>{item.summary}</Text></View></View></Card>)}</Screen> }
+const s=StyleSheet.create({row:{flexDirection:'row'},title:{fontSize:14,fontWeight:'900',color:colors.text},meta:{fontSize:10,color:colors.primary,fontWeight:'800',marginTop:4},summary:{fontSize:11,color:colors.muted,lineHeight:17,marginTop:5}});

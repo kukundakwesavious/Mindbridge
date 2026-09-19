@@ -1,0 +1,8 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../theme/theme';
+import { Logo, PrimaryButton, Screen, SmartImage } from '../components/UI';
+import { media } from '../../data/media';
+export default function WelcomeScreen({navigation}) { return <Screen contentStyle={s.content}><Logo/><SmartImage source={media.phoneUser} fallback={require('../../../assets/welcome-illustration.png')} style={s.hero}/><Text style={s.title}>You are not alone.</Text><Text style={s.text}>Connect with verified professionals, trusted community support and practical wellbeing resources—privately and at your own pace.</Text><View style={s.points}><Point icon="shield-checkmark-outline" title="Privacy first"/><Point icon="wifi-outline" title="Designed for low bandwidth"/><Point icon="people-outline" title="Built for communities"/></View><PrimaryButton title="Get started" icon="arrow-forward" onPress={()=>navigation.navigate('SignUp')}/></Screen> }
+function Point({icon,title}) { const {Ionicons}=require('@expo/vector-icons'); return <View style={s.point}><Ionicons name={icon} size={19} color={colors.primary}/><Text style={s.pointText}>{title}</Text></View> }
+const s=StyleSheet.create({content:{paddingTop:30},hero:{width:'100%',height:245,borderRadius:24,marginVertical:24},title:{fontSize:31,fontWeight:'900',color:colors.text},text:{fontSize:15,lineHeight:23,color:colors.muted,marginTop:8,marginBottom:18},points:{gap:11,marginBottom:25},point:{flexDirection:'row',alignItems:'center',gap:10},pointText:{fontSize:13,fontWeight:'700',color:colors.text}});

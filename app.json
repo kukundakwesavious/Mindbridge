@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "MindBridge Uganda",
+    "slug": "mindbridge-uganda",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/mindbridge-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F7FBFF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "icon": "./assets/app-icon.png",
+    "android": {
+      "package": "ug.ac.mindbridge.app"
+    },
+    "ios": {
+      "bundleIdentifier": "ug.ac.mindbridge.app"
+    },
+    "plugins": [
+      "expo-status-bar"
+    ]
+  }
+}
