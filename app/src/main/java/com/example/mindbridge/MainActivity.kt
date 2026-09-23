@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -59,7 +60,7 @@ fun MindBridgeAppNavigation(viewModel: MindBridgeViewModel) {
                             popUpTo(Screen.Splash.route) { inclusive = true }
                         }
                     } else {
-                        navController.navigate(Screen.Welcome.route) {
+                        navController.navigate(Screen.SignUp.route) {
                             popUpTo(Screen.Splash.route) { inclusive = true }
                         }
                     }
@@ -68,30 +69,20 @@ fun MindBridgeAppNavigation(viewModel: MindBridgeViewModel) {
         }
 
         composable(Screen.Welcome.route) {
-            WelcomeScreen(
-                onContinueAnonymous = {
-                    viewModel.loginAnonymous("Friend") {
-                        navController.navigate(Screen.Main.route) {
-                            popUpTo(Screen.Welcome.route) { inclusive = true }
-                        }
-                    }
-                },
-                onNavigateToSignUp = {
-                    navController.navigate(Screen.SignUp.route)
-                },
-                onCrisisClick = {
-                    navController.navigate(Screen.Crisis.route)
+            // Deprecated/Bypassed to completely remove continue anonymously flow as requested
+            LaunchedEffect(Unit) {
+                navController.navigate(Screen.SignUp.route) {
+                    popUpTo(0) { inclusive = true }
                 }
-            )
+            }
         }
 
         composable(Screen.SignUp.route) {
             SignUpScreen(
-                onBack = { navController.popBackStack() },
-                onRegistered = { name, email, district, university ->
-                    viewModel.loginWithCredentials(name, email, district, university) {
+                onRegistered = { name, email, district, university, accountType ->
+                    viewModel.loginWithCredentials(name, email, district, university, accountType) {
                         navController.navigate(Screen.Main.route) {
-                            popUpTo(Screen.Welcome.route) { inclusive = true }
+                            popUpTo(0) { inclusive = true }
                         }
                     }
                 },
@@ -135,7 +126,7 @@ fun MindBridgeAppNavigation(viewModel: MindBridgeViewModel) {
                     navController.navigate(Screen.Language.route)
                 },
                 onLogout = {
-                    navController.navigate(Screen.Welcome.route) {
+                    navController.navigate(Screen.SignUp.route) {
                         popUpTo(0) { inclusive = true }
                     }
                 }
@@ -287,12 +278,11 @@ fun MindBridgeAppNavigation(viewModel: MindBridgeViewModel) {
 
         composable(Screen.PeerSupport.route) {
             val peerPosts by viewModel.peerPosts.collectAsState()
-            val sessionVal by viewModel.session.collectAsState()
 
             PeerSupportScreen(
                 posts = peerPosts,
                 onAddPost = { text ->
-                    viewModel.addPeerPost(text, sessionVal?.displayName ?: "Anonymous Peer")
+                    viewModel.addPeerPost(text)
                 },
                 onBack = { navController.popBackStack() },
                 onCrisisClick = {

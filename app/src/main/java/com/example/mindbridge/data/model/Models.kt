@@ -6,6 +6,7 @@ data class UserSession(
     val email: String? = null,
     val district: String = "Kampala",
     val university: String = "Makerere University",
+    val accountType: String = "Student",
     val language: String = "English",
     val notifications: Boolean = true,
     val onboardingComplete: Boolean = true

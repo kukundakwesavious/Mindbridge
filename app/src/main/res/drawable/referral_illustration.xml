@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Soft Green Environment -->
+    <path
+        android:pathData="M50,50m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0"
+        android:fillAlpha="0.05">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="45"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#10B981" />
+                <item android:offset="1.0" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- The Bridge of Referral -->
+    <path
+        android:pathData="M20,60 L80,60"
+        android:strokeWidth="4"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="20"
+                android:startY="60"
+                android:endX="80"
+                android:endY="60"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#34D399" />
+                <item android:offset="1.0" android:color="#3B82F6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Destination 1: Health Facility (Cross) -->
+    <path
+        android:pathData="M15,45 L25,45 M20,40 L20,50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeColor="#EF4444" />
+    <path
+        android:pathData="M10,55 L30,55 L30,60 L10,60 Z"
+        android:fillColor="#E5E7EB" />
+
+    <!-- Destination 2: Faith-Based (Spire/Growth) -->
+    <path
+        android:pathData="M50,30 L55,45 L45,45 Z"
+        android:fillColor="#FBBF24" />
+    <path
+        android:pathData="M40,55 L60,55 L60,60 L40,60 Z"
+        android:fillColor="#E5E7EB" />
+
+    <!-- Destination 3: Community (Group) -->
+    <path
+        android:pathData="M75,45m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+        android:fillColor="#60A5FA" />
+    <path
+        android:pathData="M85,45m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+        android:fillColor="#60A5FA" />
+    <path
+        android:pathData="M70,55 L90,55 L90,60 L70,60 Z"
+        android:fillColor="#E5E7EB" />
+
+    <!-- Pathway Arrows -->
+    <path
+        android:pathData="M35,65 L40,70 L35,75"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#3B82F6" />
+    <path
+        android:pathData="M65,65 L60,70 L65,75"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#3B82F6" />
+
+</vector>

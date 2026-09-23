@@ -47,12 +47,12 @@ fun MainScreen(
     }
 
     val topBarSubtitle = when (selectedTab) {
-        MainTab.Home -> "Kampala, Uganda"
+        MainTab.Home -> "MindBridge Uganda"
         MainTab.Sessions -> "Consultations"
         MainTab.Amani -> "24/7 AI Companion"
         MainTab.Library -> "Guides & Articles"
         MainTab.Referrals -> "Community Links"
-        MainTab.Profile -> session?.anonymousId
+        MainTab.Profile -> session?.anonymousId ?: "Anonymous User"
     }
 
     Scaffold(
@@ -123,6 +123,11 @@ fun MainScreen(
                 MainTab.Profile -> {
                     ProfileScreen(
                         session = session,
+                        westernUgandaUniversities = viewModel.westernUgandaUniversities,
+                        accountTypes = viewModel.accountTypes,
+                        onUpdateProfile = { name, email, district, university, accountType ->
+                            viewModel.updateProfile(name, email, district, university, accountType)
+                        },
                         onLanguageClick = onNavigateToLanguage,
                         onPeerSupportClick = onNavigateToPeerSupport,
                         onCrisisClick = onNavigateToCrisis,

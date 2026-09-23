@@ -1,0 +1,36 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <path
+        android:pathData="M50,50m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"
+        android:fillAlpha="0.1">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="40"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#38BDF8" />
+                <item android:offset="1.0" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Amani AI Bot Head -->
+    <path
+        android:pathData="M35,40 Q35,30 50,30 Q65,30 65,40 L65,60 Q65,70 50,70 Q35,70 35,60 Z"
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeColor="#38BDF8" />
+    <!-- Eyes -->
+    <path android:pathData="M42,48 L48,48" android:strokeWidth="3" android:strokeColor="#38BDF8" android:strokeLineCap="round" />
+    <path android:pathData="M52,48 L58,48" android:strokeWidth="3" android:strokeColor="#38BDF8" android:strokeLineCap="round" />
+    <!-- Pulse/Wave -->
+    <path
+        android:pathData="M30,80 Q40,75 50,80 T70,80"
+        android:strokeWidth="2"
+        android:strokeColor="#10B981"
+        android:fillColor="#00000000" />
+</vector>

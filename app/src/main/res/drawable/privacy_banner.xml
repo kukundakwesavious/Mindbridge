@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="150dp"
+    android:viewportWidth="400"
+    android:viewportHeight="150">
+
+    <!-- Deep Protective Background -->
+    <path android:pathData="M0,0h400v150h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="150"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#0F172A" />
+                <item android:offset="1.0" android:color="#1E293B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Abstract Security Shield Patterns -->
+    <path
+        android:pathData="M350,-20 L450,80 L350,180 Z"
+        android:fillAlpha="0.05"
+        android:fillColor="#38BDF8" />
+    <path
+        android:pathData="M320,-50 L420,50 L320,150 Z"
+        android:fillAlpha="0.03"
+        android:fillColor="#38BDF8" />
+
+    <!-- Privacy Shield Icon -->
+    <group android:translateX="30" android:translateY="45">
+        <path
+            android:pathData="M30,0 C15,5 0,15 0,30 C0,50 30,70 30,70 C30,70 60,50 60,30 C60,15 45,5 30,0 Z"
+            android:fillAlpha="0.9">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="0"
+                    android:startY="0"
+                    android:endX="60"
+                    android:endY="70"
+                    android:type="linear">
+                    <item android:offset="0.0" android:color="#10B981" />
+                    <item android:offset="1.0" android:color="#059669" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- Keyhole/Center of Shield -->
+        <path
+            android:pathData="M30,25m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
+            android:fillColor="#FFFFFF" />
+        <path
+            android:pathData="M30,30 L30,45"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:strokeColor="#FFFFFF" />
+    </group>
+
+    <!-- Calming Safe Text Representation (Visual) -->
+    <path
+        android:pathData="M110,60 L280,60"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:pathData="M110,85 L230,85"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.1"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Corner Accents -->
+    <path
+        android:pathData="M0,0 L50,0 L0,50 Z"
+        android:fillAlpha="0.1"
+        android:fillColor="#34D399" />
+
+</vector>

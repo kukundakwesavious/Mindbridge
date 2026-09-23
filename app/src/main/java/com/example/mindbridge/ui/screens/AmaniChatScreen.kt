@@ -1,5 +1,6 @@
 package com.example.mindbridge.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,9 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mindbridge.data.model.AmaniMessage
 import com.example.mindbridge.ui.theme.*
+import com.example.mindbridge.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -50,7 +51,7 @@ fun AmaniChatScreen(
     val quickPrompts = listOf(
         "I feel overwhelmed with exams 📚",
         "2-minute box breathing calm 🌿",
-        "Oli otya Amani! 🌸",
+        "Agandi Amani! 🌸",
         "How do I book a private session? 🗓️",
         "I can't sleep, mind is racing 🌙",
         "Crisis helplines in Uganda 🆘"
@@ -62,7 +63,7 @@ fun AmaniChatScreen(
             .background(MindBridgeBackground)
             .testTag("amani_chat_screen")
     ) {
-        // Amani intro banner
+        // Amani intro banner with custom design image
         Surface(
             color = Color.White,
             shadowElevation = 2.dp,
@@ -71,31 +72,24 @@ fun AmaniChatScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Box(
+                Image(
+                    painter = painterResource(id = R.drawable.ic_amani_illustration),
+                    contentDescription = "Amani AI Companion",
                     modifier = Modifier
-                        .size(44.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
-                        .background(MindBridgeLightBlue),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.AutoAwesome,
-                        contentDescription = "Amani AI",
-                        tint = MindBridgeBlue,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+                )
 
                 Column(modifier = Modifier.weight(1f)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(
-                            text = "Amani AI Companion",
+                            text = "Amani AI",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
+                            fontSize = 17.sp,
                             color = MindBridgeNavy
                         )
                         Box(
@@ -106,7 +100,7 @@ fun AmaniChatScreen(
                         )
                     }
                     Text(
-                        text = "100% Efficient • Instant 24/7 Guidance",
+                        text = "Instant 24/7 Support",
                         fontSize = 12.sp,
                         color = MindBridgeGreen,
                         fontWeight = FontWeight.SemiBold
@@ -163,7 +157,7 @@ fun AmaniChatScreen(
                             strokeWidth = 2.dp
                         )
                         Text(
-                            text = "Amani is typing thoughtful guidance...",
+                            text = "Amani is typing...",
                             fontSize = 13.sp,
                             color = MindBridgeTextMuted
                         )
@@ -186,8 +180,7 @@ fun AmaniChatScreen(
                         onSendMessage(prompt)
                     },
                     shape = RoundedCornerShape(16.dp),
-                    color = MindBridgeLightBlue,
-                    border = null
+                    color = MindBridgeLightBlue
                 ) {
                     Text(
                         text = prompt,
@@ -273,11 +266,10 @@ fun AmaniMessageBubble(message: AmaniMessage) {
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.padding(bottom = 4.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Default.AutoAwesome,
+                Image(
+                    painter = painterResource(id = R.drawable.ic_amani_illustration),
                     contentDescription = null,
-                    tint = MindBridgeBlue,
-                    modifier = Modifier.size(14.dp)
+                    modifier = Modifier.size(16.dp).clip(CircleShape)
                 )
                 Text(
                     text = "Amani AI",
@@ -302,48 +294,31 @@ fun AmaniMessageBubble(message: AmaniMessage) {
             ),
             color = if (isUser) MindBridgeBlue else Color.White,
             shadowElevation = if (isUser) 0.dp else 1.dp,
-            modifier = Modifier.widthIn(max = 320.dp)
+            modifier = Modifier.widthIn(max = 300.dp)
         ) {
-            Column(modifier = Modifier.padding(14.dp)) {
+            Column(modifier = Modifier.padding(12.dp)) {
                 val formattedText = formatAmaniMarkdown(message.text, isUser)
                 Text(
                     text = formattedText,
                     color = if (isUser) Color.White else MindBridgeNavy,
                     fontSize = 14.sp,
-                    lineHeight = 21.sp
+                    lineHeight = 20.sp
                 )
             }
-        }
-
-        if (isUser) {
-            Text(
-                text = message.time,
-                fontSize = 11.sp,
-                color = MindBridgeTextMuted,
-                modifier = Modifier.padding(top = 2.dp, end = 4.dp)
-            )
         }
     }
 }
 
-/**
- * Parses markdown headings and bold text into Compose AnnotatedString
- */
 private fun formatAmaniMarkdown(raw: String, isUser: Boolean): androidx.compose.ui.text.AnnotatedString {
     return buildAnnotatedString {
         val lines = raw.split("\n")
         lines.forEachIndexed { index, line ->
             val trimmed = line.trim()
             if (trimmed.startsWith("### ")) {
-                withStyle(SpanStyle(fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = if (isUser) Color.White else Color(0xFF0D3B66))) {
+                withStyle(SpanStyle(fontWeight = FontWeight.Bold, fontSize = 15.sp, color = if (isUser) Color.White else MindBridgeBlue)) {
                     append(trimmed.removePrefix("### "))
                 }
-            } else if (trimmed.startsWith("## ")) {
-                withStyle(SpanStyle(fontWeight = FontWeight.Black, fontSize = 16.sp, color = if (isUser) Color.White else Color(0xFF1456B8))) {
-                    append(trimmed.removePrefix("## "))
-                }
             } else {
-                // Parse bold parts: **text**
                 var remaining = line
                 while (remaining.contains("**")) {
                     val start = remaining.indexOf("**")
@@ -351,7 +326,7 @@ private fun formatAmaniMarkdown(raw: String, isUser: Boolean): androidx.compose.
                     if (end != -1) {
                         append(remaining.substring(0, start))
                         val boldText = remaining.substring(start + 2, end)
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = if (isUser) Color.White else Color(0xFF0D3B66))) {
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                             append(boldText)
                         }
                         remaining = remaining.substring(end + 2)
@@ -361,9 +336,7 @@ private fun formatAmaniMarkdown(raw: String, isUser: Boolean): androidx.compose.
                 }
                 append(remaining)
             }
-            if (index < lines.size - 1) {
-                append("\n")
-            }
+            if (index < lines.size - 1) append("\n")
         }
     }
 }

@@ -10,6 +10,7 @@ data class SessionEntity(
     val email: String?,
     val district: String,
     val university: String,
+    val accountType: String,
     val language: String,
     val notifications: Boolean,
     val onboardingComplete: Boolean

@@ -36,6 +36,8 @@ class MindBridgeViewModel(
     val referralTypes: List<ReferralType> = repository.referralTypes
     val faithLeaders: List<FaithLeader> = repository.faithLeaders
     val supportedLanguages: List<String> = repository.supportedLanguages
+    val westernUgandaUniversities: List<String> = repository.westernUgandaUniversities
+    val accountTypes = listOf("Student", "Staff", "Other")
 
     private val _selectedTab = MutableStateFlow(MainTab.Home)
     val selectedTab: StateFlow<MainTab> = _selectedTab.asStateFlow()
@@ -53,16 +55,16 @@ class MindBridgeViewModel(
         _selectedTab.value = tab
     }
 
-    fun loginAnonymous(name: String, onDone: () -> Unit = {}) {
+    fun loginWithCredentials(name: String, email: String, district: String, university: String, accountType: String, onDone: () -> Unit = {}) {
         viewModelScope.launch {
-            repository.loginAnonymous(name)
+            repository.loginWithCredentials(name, email, district, university, accountType)
             onDone()
         }
     }
 
-    fun loginWithCredentials(name: String, email: String, district: String, university: String, onDone: () -> Unit = {}) {
+    fun updateProfile(name: String, email: String?, district: String, university: String, accountType: String, onDone: () -> Unit = {}) {
         viewModelScope.launch {
-            repository.loginWithCredentials(name, email, district, university)
+            repository.updateProfile(name, email, district, university, accountType)
             onDone()
         }
     }
@@ -104,9 +106,10 @@ class MindBridgeViewModel(
         }
     }
 
-    fun addPeerPost(text: String, author: String) {
+    fun addPeerPost(text: String) {
         viewModelScope.launch {
-            repository.addPeerPost(text, author)
+            // author is enforced as "Anonymous Peer" in repository
+            repository.addPeerPost(text, "")
         }
     }
 

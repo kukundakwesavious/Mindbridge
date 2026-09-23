@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background Halo -->
+    <path
+        android:pathData="M50,50m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"
+        android:fillAlpha="0.1">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="40"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#34D399" />
+                <item android:offset="1.0" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Stylized Human Profile (Mind Focus) -->
+    <path
+        android:pathData="M30,80 C30,60 40,40 60,40 C75,40 80,55 80,70 L80,80 Z"
+        android:fillAlpha="0.2"
+        android:fillColor="#60A5FA" />
+
+    <!-- Blooming Flower in the Mind -->
+    <path
+        android:pathData="M60,35 C58,30 52,30 50,35 C48,40 50,45 60,50 C65,45 62,40 60,35 Z"
+        android:fillColor="#F87171" />
+    <path
+        android:pathData="M60,35 C62,30 68,30 70,35 C72,40 70,45 60,50 C55,45 58,40 60,35 Z"
+        android:fillColor="#F87171" />
+    <path
+        android:pathData="M60,25 C55,35 55,45 60,50 C65,45 65,35 60,25 Z"
+        android:fillColor="#FDE68A" />
+
+    <!-- Gentle Swirls of Thought -->
+    <path
+        android:pathData="M20,50 Q30,40 40,50 T60,50"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.4"
+        android:strokeLineCap="round"
+        android:strokeColor="#3B82F6" />
+    <path
+        android:pathData="M25,60 Q35,50 45,60 T65,60"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.4"
+        android:strokeLineCap="round"
+        android:strokeColor="#34D399" />
+
+    <!-- Peace Star -->
+    <path
+        android:pathData="M80,30 L81,32 L83,32 L81.5,33.5 L82,35.5 L80,34.5 L78,35.5 L78.5,33.5 L77,32 L79,32 Z"
+        android:fillColor="#FBBF24" />
+
+</vector>

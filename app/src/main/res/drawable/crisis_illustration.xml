@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Emergency Red Gradient Background -->
+    <path
+        android:pathData="M50,50m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0"
+        android:fillAlpha="0.05">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="45"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#EF4444" />
+                <item android:offset="1.0" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Compassionate Hands Holding Heart -->
+    <path
+        android:pathData="M30,70 Q40,60 50,70 T70,70"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeColor="#F87171" />
+
+    <path
+        android:pathData="M50,45 C48,43 42,45 42,51 C42,57 50,63 50,63 C50,63 58,57 58,51 C58,45 52,43 50,45 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="42"
+                android:startY="43"
+                android:endX="58"
+                android:endY="63"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#EF4444" />
+                <item android:offset="1.0" android:color="#B91C1C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Beacon of Light (SOS) -->
+    <path
+        android:pathData="M50,20 L50,10 M20,50 L10,50 M80,50 L90,50 M50,80 L50,90"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.3"
+        android:strokeColor="#F87171" />
+
+    <!-- Life Ring / Protection Circle -->
+    <path
+        android:pathData="M50,50m-35,0a35,35 0,1 1,70 0a35,35 0,1 1,-70 0"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.2"
+        android:strokeColor="#EF4444" />
+
+</vector>
